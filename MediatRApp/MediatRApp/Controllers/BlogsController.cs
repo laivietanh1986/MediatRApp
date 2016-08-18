@@ -6,18 +6,25 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MediatR;
 using MediatRApp.Models;
+using MediatRApp.Request;
 
 namespace MediatRApp.Controllers
 {
     public class BlogsController : Controller
     {
         private MediatRContext db = new MediatRContext();
-
+        private readonly IMediator _mediator;
+        public BlogsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
         // GET: Blogs
         public ActionResult Index()
         {
-            return View(db.Blogs.ToList());
+            var model = _mediator.Send(new BlogsQuery());
+            return View(model);
         }
 
         // GET: Blogs/Details/5
