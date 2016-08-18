@@ -146,7 +146,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Handler\BlogAddCommandHandler.cs" />
+    <Compile Include="Handler\BlogDeleteCommandHandler.cs" />
+    <Compile Include="Handler\BlogEditCommandHandler.cs" />
     <Compile Include="Handler\BlogsQueryHandler.cs" />
+    <Compile Include="Handler\FindBlgQueryHandler.cs" />
     <Compile Include="Migrations\201608170735203_init_structure.cs" />
     <Compile Include="Migrations\201608170735203_init_structure.Designer.cs">
       <DependentUpon>201608170735203_init_structure.cs</DependentUpon>
@@ -156,7 +160,11 @@
     <Compile Include="Models\MediatRContext.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request\BlogAddCommand.cs" />
+    <Compile Include="Request\BlogDeleteCommand.cs" />
+    <Compile Include="Request\BlogEditCommand.cs" />
     <Compile Include="Request\BlogsQuery.cs" />
+    <Compile Include="Request\FindBlogQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

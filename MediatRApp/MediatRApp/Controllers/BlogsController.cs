@@ -34,7 +34,7 @@ namespace MediatRApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Blog blog = db.Blogs.Find(id);
+            Blog blog = _mediator.Send(new FindBlogQuery() {Id = id.Value});
             if (blog == null)
             {
                 return HttpNotFound();
@@ -57,8 +57,7 @@ namespace MediatRApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Blogs.Add(blog);
-                db.SaveChanges();
+                _mediator.Send(new BlogAddCommand() {BlogId = blog.BlogId, Name = blog.Name});
                 return RedirectToAction("Index");
             }
 
@@ -72,7 +71,7 @@ namespace MediatRApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Blog blog = db.Blogs.Find(id);
+            Blog blog = _mediator.Send(new FindBlogQuery() {Id = id.Value});
             if (blog == null)
             {
                 return HttpNotFound();
@@ -89,8 +88,7 @@ namespace MediatRApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(blog).State = EntityState.Modified;
-                db.SaveChanges();
+                _mediator.Send(new BlogEditCommand() {BlogId = blog.BlogId, Name = blog.Name});
                 return RedirectToAction("Index");
             }
             return View(blog);
@@ -103,7 +101,7 @@ namespace MediatRApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Blog blog = db.Blogs.Find(id);
+            Blog blog = _mediator.Send(new FindBlogQuery() {Id = id.Value});
             if (blog == null)
             {
                 return HttpNotFound();
@@ -116,9 +114,7 @@ namespace MediatRApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Blog blog = db.Blogs.Find(id);
-            db.Blogs.Remove(blog);
-            db.SaveChanges();
+            _mediator.Send(new BlogDeleteCommand() {BlogId = id});
             return RedirectToAction("Index");
         }
 
